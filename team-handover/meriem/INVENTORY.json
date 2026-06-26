@@ -1,0 +1,101 @@
+{
+  "member": "Meriem",
+  "domain": "Renter Space + Messaging",
+  "pages": [
+    "frontend/src/app/dashboard/locataire/page.tsx",
+    "frontend/src/app/dashboard/locataire/locations/page.tsx",
+    "frontend/src/app/dashboard/locataire/messages/page.tsx",
+    "frontend/src/app/dashboard/locataire/favoris/page.tsx",
+    "frontend/src/app/dashboard/locataire/paiements/page.tsx",
+    "frontend/src/app/dashboard/locataire/profile/page.tsx",
+    "frontend/src/app/dashboard/messages/page.tsx"
+  ],
+  "components": [
+    "frontend/src/components/dashboard/LocataireSidebar.tsx",
+    "frontend/src/components/dashboard/MessagesView.tsx",
+    "frontend/src/components/dashboard/SpendingChart.tsx",
+    "frontend/src/app/dashboard/locataire/locations/LocationRow.tsx",
+    "frontend/src/app/dashboard/locataire/locations/LitigeModal.tsx",
+    "frontend/src/app/dashboard/locataire/paiements/TransactionsTable.tsx",
+    "frontend/src/app/dashboard/locataire/profile/ProfileHeader.tsx"
+  ],
+  "hooks": [
+    "frontend/src/hooks/useSocket.ts",
+    "frontend/src/hooks/useNotifications.ts"
+  ],
+  "contexts": [
+    "frontend/src/context/AuthContext.tsx (shared - read only)"
+  ],
+  "models": [
+    "backend/src/models/Conversation.js",
+    "backend/src/models/Message.js",
+    "backend/src/models/Notification.js",
+    "backend/src/models/Location.js (shared)",
+    "backend/src/models/Paiement.js (shared)"
+  ],
+  "controllers": [
+    "backend/src/controllers/conversations.controller.js",
+    "backend/src/controllers/notifications.controller.js",
+    "backend/src/controllers/locations.controller.js (getMyLocations, getLocataireStats, createLocation, cancelLocation)",
+    "backend/src/controllers/users.controller.js (getFavoris, addFavori, removeFavori)",
+    "backend/src/controllers/paiements.controller.js (getMyPaiements)"
+  ],
+  "routes": [
+    "backend/src/routes/conversations.routes.js",
+    "backend/src/routes/notifications.routes.js",
+    "backend/src/routes/locations.routes.js (locataire endpoints)",
+    "backend/src/routes/users.routes.js (favorites endpoints)"
+  ],
+  "sockets": [
+    "backend/src/socket/index.js (send_message, receive_message, mark_read, messages_read, new_notification)",
+    "frontend/src/hooks/useSocket.ts"
+  ],
+  "middlewares": [
+    "backend/src/middleware/auth.middleware.js (verifyToken, requireRole - shared)"
+  ],
+  "services": [
+    "backend/src/services/reminders.cron.js (sends rental reminder emails - shared)"
+  ],
+  "dependencies": {
+    "frontend": ["socket.io-client", "react", "next/link", "lucide-react"],
+    "backend": ["socket.io", "mongoose", "express-validator"]
+  },
+  "api_endpoints": [
+    "GET /api/v1/locations/my",
+    "GET /api/v1/locations/my/stats",
+    "POST /api/v1/locations",
+    "PATCH /api/v1/locations/:id/cancel",
+    "GET /api/v1/conversations",
+    "POST /api/v1/conversations",
+    "GET /api/v1/conversations/:id/messages",
+    "GET /api/v1/notifications",
+    "GET /api/v1/notifications/unread-count",
+    "PATCH /api/v1/notifications/:id/read",
+    "GET /api/v1/users/favoris",
+    "POST /api/v1/users/favoris/:id",
+    "DELETE /api/v1/users/favoris/:id",
+    "GET /api/v1/paiements/my"
+  ],
+  "shared_files": [
+    {
+      "file": "frontend/src/hooks/useSocket.ts",
+      "reason": "Used by both MessagesView (Meriem) and owner messages (Youssef)"
+    },
+    {
+      "file": "backend/src/socket/index.js",
+      "reason": "Socket server handles messages for both locataire and proprietaire"
+    },
+    {
+      "file": "backend/src/models/Location.js",
+      "reason": "Core model used by locataire, proprietaire, and admin domains"
+    },
+    {
+      "file": "backend/src/controllers/locations.controller.js",
+      "reason": "Contains endpoints for locataire (createLocation, getMyLocations) AND proprietaire (acceptLocation, getOwnerLocations)"
+    },
+    {
+      "file": "frontend/src/app/dashboard/locataire/profile/SecurityForm.tsx",
+      "reason": "Password change — auth logic belongs to Ahmed; profile layout belongs to Meriem"
+    }
+  ]
+}

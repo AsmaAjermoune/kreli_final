@@ -1,0 +1,95 @@
+{
+  "member": "Youssef",
+  "domain": "Owner Space (Espace Propriétaire)",
+  "pages": [
+    "frontend/src/app/dashboard/proprietaire/page.tsx",
+    "frontend/src/app/dashboard/proprietaire/ajouter/page.tsx",
+    "frontend/src/app/dashboard/proprietaire/locations/page.tsx",
+    "frontend/src/app/dashboard/proprietaire/materiels/page.tsx",
+    "frontend/src/app/dashboard/proprietaire/materiels/[id]/edit/page.tsx",
+    "frontend/src/app/dashboard/proprietaire/messages/page.tsx",
+    "frontend/src/app/dashboard/proprietaire/revenus/page.tsx",
+    "frontend/src/app/dashboard/proprietaire/profile/page.tsx"
+  ],
+  "components": [
+    "frontend/src/components/dashboard/ProprietaireSidebar.tsx",
+    "frontend/src/components/dashboard/RevenusChart.tsx",
+    "frontend/src/components/dashboard/StatusDonutChart.tsx",
+    "frontend/src/components/dashboard/DashboardUI.tsx (StatCard - shared)",
+    "frontend/src/app/dashboard/proprietaire/ajouter/PhotoUploader.tsx",
+    "frontend/src/app/dashboard/proprietaire/locations/OwnerLocationRow.tsx",
+    "frontend/src/app/dashboard/proprietaire/profile/ProfileHeader.tsx",
+    "frontend/src/app/dashboard/proprietaire/profile/SecurityForm.tsx",
+    "frontend/src/app/dashboard/proprietaire/RevenueChartCard.tsx",
+    "frontend/src/app/dashboard/proprietaire/DemandesCard.tsx",
+    "frontend/src/app/dashboard/proprietaire/ParcTable.tsx"
+  ],
+  "hooks": [
+    "frontend/src/hooks/useSocket.ts (shared - for owner messages)",
+    "frontend/src/context/AuthContext.tsx (shared - useAuth)"
+  ],
+  "models": [
+    "backend/src/models/Materiel.js",
+    "backend/src/models/CommissionConfig.js",
+    "backend/src/models/Location.js (shared)",
+    "backend/src/models/Paiement.js (shared)"
+  ],
+  "controllers": [
+    "backend/src/controllers/materiels.controller.js",
+    "backend/src/controllers/locations.controller.js (getOwnerLocations, acceptLocation, rejectLocation, markTerminee)",
+    "backend/src/controllers/paiements.controller.js (getOwnerPaiements)"
+  ],
+  "routes": [
+    "backend/src/routes/materiels.routes.js",
+    "backend/src/routes/locations.routes.js (owner endpoints)",
+    "backend/src/routes/upload.routes.js"
+  ],
+  "middlewares": [
+    "backend/src/middleware/upload.middleware.js",
+    "backend/src/middleware/auth.middleware.js (shared)"
+  ],
+  "services": [
+    "backend/src/services/reminders.cron.js (shared - daily rental reminders)"
+  ],
+  "sockets": [
+    "backend/src/socket/index.js (owner receives new_notification on accept/reject)"
+  ],
+  "dependencies": {
+    "frontend": ["socket.io-client", "react", "next/link", "lucide-react"],
+    "backend": ["multer", "express-validator", "mongoose"]
+  },
+  "api_endpoints": [
+    "GET /api/v1/materiels/my",
+    "POST /api/v1/materiels",
+    "PUT /api/v1/materiels/:id",
+    "DELETE /api/v1/materiels/:id",
+    "GET /api/v1/materiels/my/stats",
+    "GET /api/v1/locations/owner",
+    "PATCH /api/v1/locations/:id/accept",
+    "PATCH /api/v1/locations/:id/reject",
+    "PATCH /api/v1/locations/:id/terminer",
+    "POST /api/v1/upload"
+  ],
+  "shared_files": [
+    {
+      "file": "frontend/src/components/dashboard/MessagesView.tsx",
+      "reason": "Used by both proprietaire/messages and locataire/messages pages — same component, different user context"
+    },
+    {
+      "file": "frontend/src/components/dashboard/DashboardUI.tsx (StatCard)",
+      "reason": "StatCard is used in both proprietaire and admin dashboards"
+    },
+    {
+      "file": "backend/src/controllers/locations.controller.js",
+      "reason": "Contains both locataire endpoints (Meriem) and proprietaire endpoints (Youssef)"
+    },
+    {
+      "file": "backend/src/models/Location.js",
+      "reason": "Core domain model shared by locataire, proprietaire, and admin"
+    },
+    {
+      "file": "backend/src/middleware/upload.middleware.js",
+      "reason": "Also used by admin for category image uploads (Sara)"
+    }
+  ]
+}

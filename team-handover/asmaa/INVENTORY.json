@@ -1,0 +1,143 @@
+{
+  "member": "Asmaa",
+  "domain": "Public Experience",
+  "pages": [
+    "frontend/src/app/page.tsx",
+    "frontend/src/app/catalogue/page.tsx",
+    "frontend/src/app/catalogue/CatalogueClient.tsx",
+    "frontend/src/app/materiel/[id]/page.tsx",
+    "frontend/src/app/materiel/[id]/MaterielDetailClient.tsx",
+    "frontend/src/app/about/page.tsx",
+    "frontend/src/app/about/AboutClient.tsx",
+    "frontend/src/app/error.tsx",
+    "frontend/src/app/not-found.tsx",
+    "frontend/src/app/loading.tsx",
+    "frontend/src/app/sitemap.ts"
+  ],
+  "components": {
+    "landing": [
+      "frontend/src/components/landing/HomeLandingClient.tsx",
+      "frontend/src/components/landing/HeroSection.tsx",
+      "frontend/src/components/landing/MoroccoHeroSection.tsx",
+      "frontend/src/components/landing/HowItWorksSection.tsx",
+      "frontend/src/components/landing/CategorySection.tsx",
+      "frontend/src/components/landing/FeaturedSection.tsx",
+      "frontend/src/components/landing/CTASection.tsx"
+    ],
+    "catalogue": [
+      "frontend/src/app/catalogue/CatalogueFilters.tsx",
+      "frontend/src/app/catalogue/CataloguePagination.tsx",
+      "frontend/src/app/catalogue/ProductCard.tsx",
+      "frontend/src/components/catalogue/LocationFilter.tsx",
+      "frontend/src/components/catalogue/MapPickerLeaflet.tsx"
+    ],
+    "detail": [
+      "frontend/src/app/materiel/[id]/ContactModal.tsx",
+      "frontend/src/app/materiel/[id]/ReservationModal.tsx",
+      "frontend/src/app/materiel/[id]/SimilarMateriels.tsx"
+    ],
+    "about": [
+      "frontend/src/app/about/AboutTeam.tsx",
+      "frontend/src/app/about/AboutValues.tsx"
+    ],
+    "global": [
+      "frontend/src/components/Navbar.tsx",
+      "frontend/src/components/Footer.tsx",
+      "frontend/src/components/HeroSearch.tsx",
+      "frontend/src/components/AnimatedSection.tsx",
+      "frontend/src/components/CookieBanner.tsx",
+      "frontend/src/components/TestimonialsSection.tsx",
+      "frontend/src/components/TestimonialsSlider.tsx"
+    ],
+    "ui_lib": [
+      "frontend/src/components/ui/RotatingText.tsx",
+      "frontend/src/components/ui/CircularGallery.jsx",
+      "frontend/src/components/ui/GlassSurface.jsx",
+      "frontend/src/components/ui/stagger-testimonials.tsx",
+      "frontend/src/components/ui/modem-animated-footer.tsx"
+    ]
+  },
+  "hooks": [
+    "frontend/src/hooks/useGeolocation.ts",
+    "frontend/src/hooks/useNominatim.ts"
+  ],
+  "contexts": [
+    "frontend/src/context/I18nContext.tsx"
+  ],
+  "lib_utils": [
+    "frontend/src/lib/cities.ts",
+    "frontend/src/lib/userLocation.ts",
+    "frontend/src/lib/format.ts",
+    "frontend/src/lib/api.ts (getMateriels, getMateriel, getCategories, getFeaturedMateriels, getMaterielImage, formatPrice, getStatutLabel, getStatutColor)"
+  ],
+  "middleware": [
+    "frontend/src/middleware.ts (locale routing)"
+  ],
+  "locales": [
+    "frontend/src/locales/fr.json",
+    "frontend/src/locales/en.json",
+    "frontend/src/locales/ar.json",
+    "frontend/src/locales/ber.json",
+    "frontend/src/locales/zgh.json"
+  ],
+  "models": [
+    "backend/src/models/Materiel.js (read - shared)",
+    "backend/src/models/Categorie.js (read - shared)",
+    "backend/src/models/Location.js (write - shared via createLocation)"
+  ],
+  "controllers": [
+    "backend/src/controllers/materiels.controller.js (listMateriels, getMateriel, listFeaturedMateriels)",
+    "backend/src/controllers/categories.controller.js (getAllCategories - public)",
+    "backend/src/controllers/locations.controller.js (createLocation - from ReservationModal)",
+    "backend/src/controllers/conversations.controller.js (createOrGetConversation - from ContactModal)"
+  ],
+  "routes": [
+    "backend/src/routes/materiels.routes.js (public GET endpoints)",
+    "backend/src/routes/categories.routes.js (public GET endpoint)",
+    "backend/src/routes/upload.routes.js (GET /uploads/:file - serve images)",
+    "backend/src/routes/locations.routes.js (POST /locations - shared)",
+    "backend/src/routes/conversations.routes.js (POST /conversations - shared)"
+  ],
+  "middlewares": [],
+  "services": [],
+  "sockets": [],
+  "dependencies": {
+    "frontend": ["leaflet", "react-leaflet", "next/image", "framer-motion", "next/link", "next/navigation"],
+    "backend": ["mongoose", "express"]
+  },
+  "api_endpoints": [
+    "GET /api/v1/materiels",
+    "GET /api/v1/materiels/featured",
+    "GET /api/v1/materiels/:id",
+    "GET /api/v1/categories",
+    "POST /api/v1/locations (shared - from ReservationModal)",
+    "POST /api/v1/conversations (shared - from ContactModal)",
+    "GET /uploads/:filename"
+  ],
+  "shared_files": [
+    {
+      "file": "frontend/src/lib/api.ts",
+      "reason": "All public API calls (getMateriels, getCategories, getMaterielImage, formatPrice) are defined here. All 5 members use this file."
+    },
+    {
+      "file": "frontend/src/context/I18nContext.tsx",
+      "reason": "I18n is global — used by Navbar (Asmaa), all dashboard components (Meriem, Youssef, Sara, Ahmed)"
+    },
+    {
+      "file": "frontend/src/middleware.ts",
+      "reason": "Handles locale routing for ALL pages — but does NOT do auth (that's client-side per layout.tsx)"
+    },
+    {
+      "file": "backend/src/controllers/materiels.controller.js",
+      "reason": "Public endpoints (Asmaa), owner CRUD (Youssef), admin moderation (Sara) all in same file"
+    },
+    {
+      "file": "frontend/src/components/Navbar.tsx",
+      "reason": "Global component — uses useAuth (Ahmed) and useI18n (Asmaa), rendered on every page"
+    },
+    {
+      "file": "backend/src/utils/cities.js",
+      "reason": "MOROCCAN_CITIES + haversineKm used in materiels.controller.js for geo-radius search"
+    }
+  ]
+}

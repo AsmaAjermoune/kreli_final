@@ -1,0 +1,91 @@
+{
+  "member": "Ahmed",
+  "domain": "Authentication & Authorization",
+  "pages": [
+    "frontend/src/app/auth/login/page.tsx",
+    "frontend/src/app/auth/signup/page.tsx",
+    "frontend/src/app/auth/forgot-password/page.tsx",
+    "frontend/src/app/auth/reset-password/page.tsx",
+    "frontend/src/app/dashboard/locataire/profile/page.tsx",
+    "frontend/src/app/dashboard/proprietaire/profile/page.tsx"
+  ],
+  "components": [
+    "frontend/src/app/auth/signup/RoleSelector.tsx",
+    "frontend/src/app/dashboard/locataire/profile/ProfileHeader.tsx",
+    "frontend/src/app/dashboard/locataire/profile/SecurityForm.tsx",
+    "frontend/src/app/dashboard/proprietaire/profile/ProfileHeader.tsx",
+    "frontend/src/app/dashboard/proprietaire/profile/SecurityForm.tsx",
+    "frontend/src/components/Providers.tsx"
+  ],
+  "layouts_guards": [
+    "frontend/src/app/dashboard/admin/layout.tsx",
+    "frontend/src/app/dashboard/locataire/layout.tsx",
+    "frontend/src/app/dashboard/proprietaire/layout.tsx"
+  ],
+  "hooks": [
+    "frontend/src/context/AuthContext.tsx (useAuth export)"
+  ],
+  "contexts": [
+    "frontend/src/context/AuthContext.tsx"
+  ],
+  "lib_utils": [
+    "frontend/src/lib/auth.ts",
+    "frontend/src/lib/api.ts (AuthUser, AuthResponse types, getToken)"
+  ],
+  "middleware_frontend": [
+    "frontend/src/middleware.ts (locale routing only — NOT auth)"
+  ],
+  "controllers": [
+    "backend/src/controllers/auth.controller.js",
+    "backend/src/controllers/users.controller.js"
+  ],
+  "routes": [
+    "backend/src/routes/auth.routes.js",
+    "backend/src/routes/users.routes.js"
+  ],
+  "models": [
+    "backend/src/models/User.js"
+  ],
+  "middlewares": [
+    "backend/src/middleware/auth.middleware.js"
+  ],
+  "services": [
+    "backend/src/services/email.service.js",
+    "backend/src/utils/mailer.js"
+  ],
+  "sockets": [],
+  "shared_files": [
+    {
+      "file": "frontend/src/lib/api.ts",
+      "reason": "Defines AuthUser and AuthResponse types used across all members; also contains all API call functions"
+    },
+    {
+      "file": "frontend/src/context/AuthContext.tsx",
+      "reason": "useAuth() is consumed by all dashboard layouts and many components across Meriem, Youssef, Sara domains"
+    },
+    {
+      "file": "backend/src/middleware/auth.middleware.js",
+      "reason": "verifyToken and requireRole are used by every protected route in the backend"
+    },
+    {
+      "file": "backend/src/models/User.js",
+      "reason": "Referenced by all controllers (conversations, locations, materiels) via populate()"
+    },
+    {
+      "file": "frontend/src/components/Providers.tsx",
+      "reason": "Wraps both AuthProvider and I18nProvider — used globally"
+    }
+  ],
+  "dependencies": {
+    "backend": ["bcryptjs", "jsonwebtoken", "express-validator", "crypto (built-in)", "nodemailer"],
+    "frontend": ["react", "next", "socket.io-client (token passed to socket)"]
+  },
+  "api_endpoints": [
+    "POST /api/v1/auth/register",
+    "POST /api/v1/auth/login",
+    "GET /api/v1/auth/me",
+    "PUT /api/v1/auth/profile",
+    "POST /api/v1/auth/forgot-password",
+    "POST /api/v1/auth/reset-password"
+  ]
+}
