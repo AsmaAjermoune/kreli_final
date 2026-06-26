@@ -3,7 +3,6 @@ import { Inter, Inter_Tight, JetBrains_Mono, Cairo, Plus_Jakarta_Sans } from 'ne
 import './globals.css';
 import './animations.css';
 import { Providers } from '@/components/Providers';
-import CookieBanner from '@/components/CookieBanner';
 
 const bodyFont = Inter({ subsets: ['latin'], display: 'swap', variable: '--font-body', weight: ['400', '500', '600'] });
 const displayFont = Inter_Tight({ subsets: ['latin'], display: 'swap', variable: '--font-display', weight: ['600', '700', '800', '900'] });
@@ -72,7 +71,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${bodyFont.variable} ${displayFont.variable} ${monoFont.variable} ${arabicFont.variable} ${jakartaFont.variable} bg-slate-50 text-slate-900 antialiased font-sans`}>
         <Providers>
           {children}
-          <CookieBanner />
         </Providers>
       </body>
     </html>

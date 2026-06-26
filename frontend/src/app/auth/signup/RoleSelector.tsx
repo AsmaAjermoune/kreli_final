@@ -42,18 +42,6 @@ export function RoleSelector({ value, onChange }: { value: Role; onChange: (role
           </span>
         </button>
       </div>
-      <button
-        type="button"
-        onClick={() => onChange("both")}
-        className="mt-2 w-full rounded-xl border-2 py-2 text-sm font-semibold transition"
-        style={{
-          borderColor: value === "both" ? "#ff6700" : "#e2e8f0",
-          backgroundColor: value === "both" ? "rgba(255,103,0,0.05)" : "transparent",
-          color: value === "both" ? "#ff6700" : "#64748b",
-        }}
-      >
-        Les deux à la fois
-      </button>
     </div>
   );
 }
